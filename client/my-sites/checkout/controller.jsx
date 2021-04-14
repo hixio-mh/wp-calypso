@@ -59,6 +59,7 @@ export function checkout( context, next ) {
 		context.pathname.includes( '/checkout/no-site' ) &&
 		( isLoggedOut || ! hasSite || isDomainOnlyFlow );
 	const isJetpackCheckout = context.pathname.includes( '/checkout/jetpack' );
+	const jetpackSiteSlug = context.params.siteSlug;
 
 	if ( ! selectedSite && ! isDisallowedForSitePicker && ! isJetpackCheckout ) {
 		sites( context, next );
@@ -115,6 +116,7 @@ export function checkout( context, next ) {
 			isLoggedOutCart={ isLoggedOutCart }
 			isNoSiteCart={ isNoSiteCart }
 			isJetpackCheckout={ isJetpackCheckout }
+			jetpackSiteSlug={ jetpackSiteSlug }
 		/>
 	);
 
