@@ -105,7 +105,16 @@ export default function () {
 
 		if ( config.isEnabled( 'marketplace-yoast' ) ) {
 			page( '/plugins/domain/:site', siteSelection, renderDomainsPage, makeLayout, clientRender );
+
+			page(
+				'/plugins/thank-you/:site?',
+				siteSelection,
+				() => 'THANK YOU FOR THE PURCHASE',
+				makeLayout,
+				clientRender
+			);
 		}
+
 		page(
 			'/plugins/:pluginFilter(active|inactive|updates)/:site_id?',
 			scrollTopIfNoHash,
