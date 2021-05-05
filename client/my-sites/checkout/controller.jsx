@@ -59,8 +59,11 @@ export function checkout( context, next ) {
 		context.pathname.includes( '/checkout/no-site' ) &&
 		( isLoggedOut || ! hasSite || isDomainOnlyFlow );
 	const jetpackPurchaseToken = context.query.purchasetoken;
+	const jetpackPurchaseNonce = context.query.purchaseNonce;
 	const isJetpackUserlessCheckout =
-		context.pathname.includes( '/checkout/jetpack' ) && isLoggedOut && !! jetpackPurchaseToken;
+		context.pathname.includes( '/checkout/jetpack' ) &&
+		isLoggedOut &&
+		( !! jetpackPurchaseToken || !! jetpackPurchaseNonce );
 	const jetpackSiteSlug = context.params.siteSlug;
 
 	if ( ! selectedSite && ! isDisallowedForSitePicker && ! isJetpackUserlessCheckout ) {
@@ -119,7 +122,7 @@ export function checkout( context, next ) {
 			isNoSiteCart={ isNoSiteCart }
 			isJetpackUserlessCheckout={ isJetpackUserlessCheckout }
 			jetpackSiteSlug={ jetpackSiteSlug }
-			jetpackPurchaseToken={ jetpackPurchaseToken }
+			jetpackPurchaseToken={ jetpackPurchaseToken || jetpackPurchaseNonce }
 		/>
 	);
 
