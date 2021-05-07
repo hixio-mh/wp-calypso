@@ -10,7 +10,6 @@ import page from 'page';
  * Internal Dependencies
  */
 import SingleSiteComponent from 'calypso/my-sites/themes/single-site';
-import MultiSiteComponent from 'calypso/my-sites/themes/multi-site';
 import LoggedOutComponent from './logged-out';
 import Upload from 'calypso/my-sites/themes/theme-upload';
 import trackScrollPage from 'calypso/lib/track-scroll-page';
@@ -20,6 +19,7 @@ import { getThemeFilters, getThemesForQuery } from 'calypso/state/themes/selecto
 import { getAnalyticsData } from './helpers';
 import { getSelectedSiteId } from 'calypso/state/ui/selectors';
 import isSiteWPForTeams from 'calypso/state/selectors/is-site-wpforteams';
+import { sites } from 'calypso/my-sites/controller';
 
 const debug = debugFactory( 'calypso:themes' );
 
@@ -70,10 +70,13 @@ export function loggedIn( context, next ) {
 		window.scrollTo( 0, 0 );
 	}
 
-	const Component = context.params.site_id ? SingleSiteComponent : MultiSiteComponent;
-	context.primary = <Component { ...getProps( context ) } />;
-
-	next();
+	if ( context.params.site_id ) {
+		context.primary = <SingleSiteComponent { ...getProps( context ) } />;
+		next();
+	} else {
+		// Force logged in user w/o a site to choose a site
+		return sites( context, next );
+	}
 }
 
 export function loggedOut( context, next ) {
