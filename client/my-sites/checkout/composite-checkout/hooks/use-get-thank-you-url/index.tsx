@@ -31,6 +31,7 @@ export default function useGetThankYouUrl( {
 	productAliasFromUrl,
 	hideNudge,
 	isInEditor,
+	isJetpackUserlessCheckout = false,
 }: GetThankYouUrlProps ): GetThankYouUrl {
 	const selectedSiteData = useSelector( ( state ) => getSelectedSite( state ) );
 	const shouldShowOneClickTreatment = useSelector( ( state ) => isTreatmentOneClickTest( state ) );
@@ -60,6 +61,7 @@ export default function useGetThankYouUrl( {
 			hideNudge,
 			isInEditor,
 			previousRoute,
+			isJetpackUserlessCheckout,
 		};
 		debug( 'getThankYouUrl called with', getThankYouPageUrlArguments );
 		const url = getThankYouPageUrl( getThankYouPageUrlArguments );
@@ -80,6 +82,7 @@ export default function useGetThankYouUrl( {
 		purchaseId,
 		cart,
 		hideNudge,
+		isJetpackUserlessCheckout,
 	] );
 	return getThankYouUrl;
 }
@@ -95,4 +98,5 @@ export interface GetThankYouUrlProps {
 	productAliasFromUrl?: string | undefined;
 	hideNudge?: boolean;
 	isInEditor?: boolean;
+	isJetpackUserlessCheckout?: boolean;
 }
