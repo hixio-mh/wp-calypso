@@ -49,7 +49,7 @@ module.exports.loader = ( { includePaths, prelude, postCssOptions, cacheDirector
 		{
 			loader: require.resolve( 'sass-loader' ),
 			options: {
-				prependData: prelude,
+				additionalData: prelude,
 				sassOptions: {
 					includePaths,
 				},
