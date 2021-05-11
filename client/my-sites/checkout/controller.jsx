@@ -281,10 +281,7 @@ export function redirectToSupportSession( context ) {
 }
 
 export function userlessCheckoutThankYou( context, next ) {
-	const jetpackSiteSlug = context.params.siteSlug;
-	const receiptId = Number( context.params.receiptId );
-
-	context.primary = <UserlessJetpackThankYou />;
+	context.primary = <UserlessJetpackThankYou site={ context.params.site } />;
 
 	next();
 }
